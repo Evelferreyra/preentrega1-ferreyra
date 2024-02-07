@@ -1,53 +1,91 @@
-//simulador de linea telefonica
 
-let savedNUMERO = "2121"
-let ingresar = false
+const productos = [
+   {id:1, nombre:"Pack de 5GB", precio:2000},
+   {id:2, nombre:"Pack de 10GB", precio:4000},
+   {id:3, nombre:"Pack de 15GB", precio:5000},
+   {id:4, nombre:"Pack de 3GB X 7 Dias", precio:1500},
+]
 
-//login
-for (let i = 2; i >= 0; i--) {
-   let userNUMERO = prompt("ingresa tu numero de linea. Tenes " + (i + 1) + " intentos")
-   if (userNUMERO == savedNUMERO) {
-      alert("Login Exitoso");
-      ingresar = true;
-      break
-   } else {
-      alert("El numero no coincide. Te quedan " + i + " intentos")
+class Carrito {
+   constructor() {
+       this.productos = [];
+       this.descuento = 20;
+       this.maxProductosParaDescuento = 2;
+       this.totalPagar = 0;
+   }
+
+   agregarProducto(id) {
+       let producto = productos.find(prod => prod.id === id);
+       console.log(producto);
+
+       if (producto) {
+           this.productos.push(producto);
+           console.log("Agregaste el Producto #" + id + " al Carrito!");
+       } else {
+           console.log("No se encontró el Producto con #" + id + "!");
+       }
+   }
+
+   listarCarrito() {
+       let salida = "";
+
+       this.productos.forEach(item => {
+           salida += item.id + " - " + item.nombre + " - $" + item.precio + "\n";
+       })
+
+       return salida;
+   }
+
+   calcularTotalProductos() {
+       return this.productos.length;
+   }
+
+   aplicarDescuento() { 
+       if (this.calcularTotalProductos() >= this.maxProductosParaDescuento) {
+           return Math.round((this.calcularTotalPagar() * this.descuento) / 100);
+       } else {
+           return 0;
+       }
+   }
+
+   calcularTotalPagar() {
+       let total = 0;
+
+       this.productos.forEach(item => {
+          total += item.precio;
+       });
+
+       return total;
+
    }
 }
 
+function listarProductos() {
+   let salida = "";
 
+   productos.forEach(item => {
+       salida += item.id + " - " + item.nombre + " - $" + item.precio + "\n";
+   })
 
-if (ingresar) {
-   let GB = 15
-   let DEUDA = 15000
-   let opcion = prompt("Elegi una opcion: \n1-Saldo Disponible \n2-Recargar \n3-Pagar Factura \n4- Presiona X para finalizar");
-   while (opcion != "X" && opcion != "x") {
-      switch (opcion) {
-         case "1": alert("Tu saldo es de GB" + GB)
-            break
-         case "2": Recargar()
-            break
-         case "3": alert("Su deuda actual es de $" + DEUDA)
-            let opcion = prompt("Con que medio de pago abona: \n1- Mercado Pago \n2- Efectivo \n3- Volver al menu anterior ")
-            switch (opcion) {
-               case "1": alert("Ingrese manualmente la factura numero: 00023232255")
-                  break;
-               case "2": alert("Dirijase a un Pago Facil con el numero de factura 00023232255")
-                  break;
-                  case "3": window.history.back()
-            
-         }
-      }
-      opcion = prompt("Elegi una opcion: \n1-Saldo Disponible \n2-Recargar \n3-Pagar \n4- Presiona X para finalizar")
-   }
-
-   function Recargar() {
-      let recargar = parseInt(prompt("Ingresa la cantidad a recargar"))
-      if (recargar > 0) {
-         GB += recargar
-         alert("Tu saldo actual es de GB" + GB)
-      }
-   }
-  
+   return salida;
 }
 
+
+const carrito = new Carrito();
+let opcionSeleccionada = 10;
+
+while (opcionSeleccionada != 0) {
+opcionSeleccionada = parseInt(prompt("Seleccione el producto a agregar al Carrito: (X para Salir)\n Seleccione 5 para continuar \n" + listarProductos()));
+
+   if (opcionSeleccionada == 5) {
+       break;
+   }
+
+   carrito.agregarProducto(opcionSeleccionada);
+}
+
+let productosCarrito = "Detalle:\n" + carrito.listarCarrito();
+let salidaSubTotal = "Subtotal: $" + carrito.calcularTotalPagar();
+let salidaDescuento = "Descuento: $" + carrito.aplicarDescuento();
+let montoFinal = "Total: $" + Math.round(carrito.calcularTotalPagar() - carrito.aplicarDescuento());
+alert(productosCarrito + "\n" + salidaSubTotal + "\n" + salidaDescuento + "\n" + montoFinal);
