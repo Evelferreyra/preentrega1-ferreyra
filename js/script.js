@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     payButton.addEventListener('click', function() {
-        // Aquí puedes agregar la lógica para el pago, por ejemplo, redirigir a una página de pago.
         alert('Gracias por su compra!');
         cart = [];
         subtotal = 0;
