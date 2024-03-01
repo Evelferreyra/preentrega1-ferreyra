@@ -1,9 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head></head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
 <body>
-    <h1>Segunda Pre-Entrega</h1>
-    
-    <script src="./preentrega/preentrega.js"></script>
+    <div class="container">
+        <div class="products">
+            <div class="product">
+                <img src="img/pexels-tracy-le-blanc-607812.jpg" alt="img">
+                <h2>10GB x 30 DIAS</h2>
+                <p>Precio: $3500</p>
+                <button class="add-to-cart-btn" data-name="Producto 1" data-price="3500">Agregar al Carrito</button>
+            </div>
+            <div class="product">
+                <img src="img/pexels-lisa-fotios-1092671.jpg" alt="img">
+                <h2>15GB X 30 DIAS</h2> 
+                <p>Precio: $4000</p>
+                <button class="add-to-cart-btn" data-name="Producto 2" data-price="4000">Agregar al Carrito</button>
+              
+            </div>
+            <div class="product">
+                <img src="img/pexels-lisa-fotios-1092644.jpg" alt="img">
+                <h2>5GB X 10 DIAS</h2>
+                <p>Precio: $1000</p>
+                <button class="add-to-cart-btn" data-name="Producto 3" data-price="1000">Agregar al Carrito</button>
+            </div>
+        </div>
+        <div class="cart">
+            <h2>Carrito de Compras</h2>
+            <ul id="cart-items"></ul>
+            <h3>Subtotal: $<span id="cart-subtotal">0.00</span></h3>
+            <h3>Total: $<span id="cart-total">0.00</span></h3>
+            <button id="pay-btn">Pagar</button>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
 </body>
 </html>
